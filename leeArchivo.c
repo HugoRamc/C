@@ -16,7 +16,9 @@ int main(int argc, char *argv[])
 	{			
 		while(feof(ar)==0)//la funcion regresa 0 no es el final del archivo 
 		{
-			fgets(cad,40,ar);
+			//strcpy(nombre,&cad[7]);
+			fscanf(ar,"%s",cad);
+			//fgets(cad,40,ar);
 			//puts(cad);
 			printf("%s",cad);
 			
