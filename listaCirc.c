@@ -6,6 +6,7 @@ struct Nodo
 {
 	int dato;
 	struct Nodo *ptrSig;
+	struct Nodo *ptrAnt;
 
 };
 
@@ -24,13 +25,17 @@ void meterInicio(int dato1)
 	{
 		printf("\nEs el primer nodo\n");
 		ptrIni=ptrNuevo;
+		ptrIni->ptrAnt = ptrNuevo;
 		ptrIni->ptrSig=ptrIni;//apunta al mismo nodo
 		ptrFin=ptrNuevo;
 
 	}else
 	{
+		
 		ptrNuevo->ptrSig=ptrIni;
+		ptrIni->ptrAnt=ptrNuevo;
 		ptrIni=ptrNuevo;
+		
 		ptrFin->ptrSig=ptrIni;
 
 	}
@@ -49,11 +54,13 @@ void meterFinal(int dato1)
 	{
 		printf("primer nodo");
 		ptrIni=ptrNuevo;
+		ptrIni->ptrAnt = ptrNuevo;
 		ptrIni->ptrSig=ptrIni;//apunta al mismo nodo
 		ptrFin=ptrNuevo;
 
 	}else
 	{
+		ptrNuevo->ptrAnt = ptrFin;
 		ptrFin->ptrSig=ptrNuevo;
 		ptrNuevo->ptrSig = ptrIni;
 		ptrFin=ptrNuevo;
@@ -63,14 +70,14 @@ void meterFinal(int dato1)
 
 }
 
-void mostrarlista()
+void mostrarlistaInicio()
 {
 	struct Nodo *ptrRecIni;
 	ptrRecIni = ptrIni;
 
 	if(ptrIni == NULL)
 	{
-		printf("La lista est√° vacia lel \n");
+		printf("La lista est· vacia lel \n");
 
 	}else
 	{
@@ -81,10 +88,34 @@ void mostrarlista()
 
 		}
 		
-		printf("\n%d",ptrRecIni->dato);
+		printf("\n %d",ptrRecIni->dato);
 
 	}
 
+}
+
+void mostrarListaFinal()
+{
+	struct Nodo *ptrRecFin;
+	ptrRecFin = ptrFin;
+	
+	if(ptrFin == NULL)
+	{
+		printf("La lista est· vacia lel \n");
+
+	}else
+	{
+		while(ptrRecFin!=ptrIni)
+		{
+			printf("\n %d",ptrRecFin->dato);
+			ptrRecFin=ptrRecFin->ptrAnt;
+
+		}
+		
+		printf("\n %d",ptrRecFin->dato);
+
+	}
+	
 }
 
 void sacarInicio()
@@ -131,7 +162,7 @@ void sacarFinal()
 		//recorrer lista
 		while(ptrRec!=ptrFin)
 		{
-			//verificar si en realidad es el √∫ltimo elemento
+			//verificar si en realidad es el ˙ltimo elemento
 			if(ptrRec->ptrSig==ptrFin)
 			{
 				ptrAux = ptrFin;//hacemos la asignacion de apuntadores para despues liberarlos
@@ -159,7 +190,7 @@ int main()
 	
 	do
 	{
-		printf("\n\nSeleccione una opcion: \n\n 1.-Meter dato(al incio)\n 2.-Meter al final\n 3.-Mostrar Lista\n 4.-Sacar al inicio\n 5.-Sacar al final\n 6.-Salir\n\n");
+		printf("\n\nSeleccione una opcion: \n\n 1.-Meter dato(al incio)\n 2.-Meter al final\n 3.-Mostrar Lista (Inicio)\n 4.-Mostrar Lista (Final)\n 5.-Sacar al inicio\n 6.-Sacar al final\n 7.-Salir\n\n");
 
 		scanf("%d",&op);
 		
@@ -176,27 +207,29 @@ int main()
 				meterFinal(dato1);
 			break;
 			case 3:	
-				mostrarlista();
+				mostrarlistaInicio();
 			break;
 			case 4:
-				sacarInicio();
+				mostrarListaFinal();
+				
 			break;
 			case 5:
-				sacarFinal();
+				sacarInicio();
 			break;
 			case 6:
+				sacarFinal();
+			break;
+			case 7:
 				exit(0);
 			break;
 			default:
-			printf("Ingrese una opci√≥n v√°lida");
+			printf("Ingrese una opciÛn v·lida");
 		
 
 		}
-	}while(op!=6);
+	}while(op!=7);
 
 
 
 	return 0;
 }
-
-//
